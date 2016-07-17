@@ -1,6 +1,6 @@
 
 # Overview
-A database that contains an overview of what team is expect where (ie. which event), that can be queried to obtain specific information for a person or team.
+A database that contains an overview of which team is expected where (ie. which event), that can be queried to obtain specific information for a person or team.
 
 # Schedule elements:
 - Activity: an activity that the team needs to complete (robot match 1, Project judging session, etc)
