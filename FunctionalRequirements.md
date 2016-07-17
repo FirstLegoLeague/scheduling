@@ -1,6 +1,6 @@
 
 # Overview
-A database that contains an overview of which team is expected where (ie. which event), that can be queried to obtain specific information for a person or team.
+An application that can provide an overview of which team is expected where (ie. which event), that can be queried to obtain specific information for a person or team. The goal of this application is to provision schedule information to other applications, such as mobile websites for teams, event displays and 
 
 # Schedule elements:
 - Activity: an activity that the team needs to complete (robot match 1, Project judging session, etc)
