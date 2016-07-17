@@ -1,5 +1,6 @@
 Scheduling REST api design
 ====================
+Apiary mockup of API implemention: [http://docs.scheduling3.apiary.io/]
 
 /schedule
 ------
