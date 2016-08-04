@@ -55,16 +55,16 @@ In addition the API, the application should also push messages on the message hu
  
 # Output
 - Provide website that can be accessed/published by the visitors, ahead of and during the event.
--  - Select a specific team and retrieve schedule
--  - Select a specific location and show the schedule
--  - Now & Next: show current activities and the next 10 minutes
--  - What is happening at xxx: show the events schedule. 
+  - Select a specific team and retrieve schedule
+  - Select a specific location and show the schedule
+  - Now & Next: show current activities and the next 10 minutes
+  - What is happening at xxx: show the events schedule. 
 - Printouts, generate PDFs with the schedule...
--  - Per team
+  - Per team
 - Per location
--  - Per activity
--  - Per time (period)
--
+  - Per activity
+  - Per time (period)
+
 *Use case 1:* 
 
 # TODOS:
