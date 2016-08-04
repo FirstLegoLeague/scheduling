@@ -36,25 +36,25 @@ Once the events are loaded, the information can be accessed by different modules
 
 *Use case 3*: A display in the pit area shows the upcoming events, the display application requests `/schedule/due` or `/schedule?time=2015-11-21T13:05:00Z`. The returned data shows the next events which are displayed on the screen.
 
- -##Live event & Mhub 
- -In addition the API, the application should also push messages on the message hub. This allows the trigger of events in other applications. For example trigger a notification in a team application about delays in the schedule. 
- -
- -- Shift the schedule
- -  1. Ask for a delay in minutes, and confirmation
- -  2. Trigger a message on the MHub: ``
- -  3. Recalculate the 'real time' field: real time + delay
- -- Move team to different location /time
- -  1. Select team and activity, show original team and location
- -  2. Select new location and/or time
- -  4. Check for conflicts: location in use, team not available
- -  5. Confirm change and publish MHub message: ``
- -
- -*Use case 1:* 
- -
- -*Use case 2:* 
- -
- -# Output
- -- Provide website that can be accessed/published by the visitors, ahead of and during the event.
+ ##Live event & Mhub 
+ In addition the API, the application should also push messages on the message hub. This allows the trigger of events in other applications. For example trigger a notification in a team application about delays in the schedule. 
+ 
+ - Shift the schedule
+   1. Ask for a delay in minutes, and confirmation
+   2. Trigger a message on the MHub: ``
+   3. Recalculate the 'real time' field: real time + delay
+ - Move team to different location /time
+   1. Select team and activity, show original team and location
+   2. Select new location and/or time
+   4. Check for conflicts: location in use, team not available
+   5. Confirm change and publish MHub message: ``
+ 
+ *Use case 1:* 
+ 
+ *Use case 2:* 
+ 
+ # Output
+ - Provide website that can be accessed/published by the visitors, ahead of and during the event.
  -  - Select a specific team and retrieve schedule
  -  - Select a specific location and show the schedule
  -  - Now & Next: show current activities and the next 10 minutes
@@ -65,7 +65,7 @@ Once the events are loaded, the information can be accessed by different modules
  -  - Per activity
  -  - Per time (period)
  -
- -*Use case 1:* 
+ *Use case 1:* 
  
 
 # TODOS:
