@@ -36,7 +36,7 @@ Once the events are loaded, the information can be accessed by different modules
 
 *Use case 3*: A display in the pit area shows the upcoming events, the display application requests `/schedule/due` or `/schedule?time=2015-11-21T13:05:00Z`. The returned data shows the next events which are displayed on the screen.
 
- ## Live event & Mhub 
+## Live event & Mhub 
 In addition the API, the application should also push messages on the message hub. This allows the trigger of events in other applications. For example trigger a notification in a team application about delays in the schedule. 
  
 - Shift the schedule
