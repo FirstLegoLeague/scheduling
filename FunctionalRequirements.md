@@ -7,6 +7,7 @@ An application that can provide an overview of which team is expected where (ie.
 - TeamId / TeamName: who is completeing the activity (team 1)
 - Location: where the activity take place (Judging room A, table 6, Pit Area A5)
 - Start / End: when the activity is scheduled to take place (times as iso8601 formatted string: 2015-11-21AT13:05:00Z)
+- Actual start/ end: The updated time in case of delays.
 
 Note that activities can also be:
 - Ceremonies that apply to all: opening ceremonies, award ceremony
@@ -25,7 +26,9 @@ Before the tournament the event organizer generates a schedule with one of the e
   - Duplicate records
   - Team scheduled to be in more than place
 
-*Use case 1*: The event organizer has used the FLL tournament scheduler tool,
+* Use case 1 *: The event organizer has used the FLL tournament scheduler tool, and copies the overall schedule to the application. The tool asks which tool has been used to create the schedule and is able to parse the information directly. The organizer transfers the DB file to an USB stick to be used at the event.
+
+* Use case 2 *: One of the volunteer has manually created a schedule and imports it into the schedule application. The application asks to identify which columns contains the teamName, teamID, activity, location and start/end time and process the data. The organizer copies the entire application with the database to a usb drive.
 
 ## API
 Once the events are loaded, the information can be accessed by different modules through an API. Other modules / applications should be able to make the following API calls: [Api Design](https://github.com/FirstLegoLeague/scheduling/blob/master/apiDesign.md)
@@ -61,7 +64,7 @@ In addition the API, the application should also push messages on the message hu
   - What is happening at xxx: show the events schedule. 
 - Printouts, generate PDFs with the schedule...
   - Per team
-- Per location
+  - Per location
   - Per activity
   - Per time (period)
 
@@ -71,3 +74,4 @@ In addition the API, the application should also push messages on the message hu
 - Agreement on the import format from Excel.
 - Discuss how to allow generation and application setup on a device ahead of the event and to be run on a different device during the event (could for example be a zip file, or export function)
 - Prevent or work with multiple schedule servers at the event
+- Define MHub messages and topics in MQ-protocols: [MQ protocols](https://github.com/FirstLegoLeague/mq-protocols)
