@@ -2,15 +2,13 @@
 """
 Created on Wed Nov 16 21:34:22 2016
 
-@author: s129938
+@author: Tom Nijho
 """
-import numpy as np
-
 totalIDTeam = 0
 totalIDTable = 0
 delayTable = 50
 delayTeam = 70
-fixEvents = [("Fix1",500,700),("Fix2",900,1150)]
+fixEvents = [("Fix1",550,700),("Fix2",900,1150)]
 startTime = 100
 stopTime = 2500
 
@@ -27,7 +25,7 @@ class tables():
         totalIDTable += 1
         
     def assignTeam(self,teamID,start):
-        self.IDorder.append((teamID,start))
+        self.IDorder.append((teamID,start,start + self.totTime))
         self.available = start + delayTable+self.totTime
 
 
@@ -83,6 +81,9 @@ def assignTask(team, table, startTime):
     teamID = team.id
     tableID = table.id
     tableType = table.type
+    for i in fixEvents:
+        if startTime+table.totTime+max(delayTable, delayTeam) > i[1] and startTime+table.totTime+max(delayTable, delayTeam) < i[2]:
+            startTime = i[2]
     table.assignTeam(teamID, startTime)
     team.assignTabel(tableID=tableID, tableType=tableType,start = startTime, time=table.totTime)
   
