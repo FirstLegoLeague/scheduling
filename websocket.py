@@ -21,20 +21,24 @@ class mhub_conc():
         # create an INET, STREAMing socket
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.settimeout(10)
-
+        
         #self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         #s.setblocking(0)
         self.s.connect((HOST, PORT))
+        subscriptString = '{"type": "subscribe","node": "default"}%s'%(self.CRLF)
+        self.s.send(subscriptString.encode())
 
     def SEND(self,message):
         totMes = '{"type":"publish","node":"default","topic":"python_schema","data":"%s"}%s'%(message,self.CRLF)
-        self.s.send(totMes.encode())
+        k = self.s.send(totMes.encode())
+        print(k)
         
     def LISTEN(self):
         #DOESN'T WORK!!!
         self.s.settimeout(None)
-        self.data = self.s.makefile()
-        if self.data != b'':
+        
+        self.data = self.s.makefile().readline()
+        if self.data != '':
             print(self.data)
         """
         self.data = self.s.recv(1)
@@ -52,9 +56,10 @@ class mhub_conc():
         self.s.close()
 
 
-test = mhub_conc("localhost", 13900)
+test = mhub_conc("localhost", 13902)
 test.SEND("Websocket")
 st = time.time()
 
-test.LISTEN()
+while True:
+    test.LISTEN()
     #break
