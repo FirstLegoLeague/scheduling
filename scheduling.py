@@ -9,24 +9,21 @@ from Table_class import Table
 from Team_class import Team
 from FixEvent_class import FixEvent
 
-totalIDTeam = 0
-totalIDTable = 0
-delayTable = 50
-delayTeam = 70
-
-
 class Schema():
-    def __init__(self,teams,tables, fixEvents):
-        self.teams = teams
-        self.tables = tables
-        self.fixEvents = fixEvents
+    def __init__(self):
+        self.teams = []
+        self.tables = []
+        self.fixEvents = []
+        self.teamID = 0
+        self.tableID = 0
+        self.fixEventID = 0
         
     def assignTask(self,team, table, startTime):
         teamID = team.id
         tableID = table.id
         tableType = table.type
         #check if fixed event will interver
-        stopTime = startTime+table.totTime+max(delayTable, delayTeam)
+        stopTime = startTime+table.totTime+max(table.delay, team.delay)
         for i in self.fixEvents:
             if (startTime < i.start and  stopTime > i.start) or (startTime > i.start and startTime < i.stop):
                 startTime = i.stop + i.delay
@@ -37,6 +34,12 @@ class Schema():
         #print(team.available,"\n")
         
     def makeSchema(self):
+        allTabTypes = []
+        for i in self.tables:
+            allTabTypes.append(i.type)
+        numTables = len(set(allTabTypes))
+        for i in self.teams:
+            i.changeNumtypes(numTables)
         completTables = []
         completTeams = []
         while True:
@@ -82,38 +85,83 @@ class Schema():
                 j.assignFix(eventName=i.name,start=i.start,stop=i.stop)
             for j in self.tables:
                 j.assignFix(eventName=i.name,start=i.start,stop=i.stop)
-        self.schema()
+        return("Schema made")
     
-    def schema(self):
-        print("Table")
-        for i in self.tables:
-            print(i.IDorder)
+    def addTeam(self,name,delay):
+        self.teams.append(Team(name,self.teamID,1,delay=delay))
+        self.teamID += 1
+    
+    def addTable(self,name,totTime,typeT,delay):
+        self.tables.append(Table(name,self.tableID,totTime=totTime,theType=typeT,delay=delay))
+        self.tableID += 1
         
-        print("Teams")
+    def addFixEvent(self,name,start,stop):
+        self.fixEvents.append(FixEvent(name,self.fixEventID,start=start,stop=stop))
+        self.fixEventID += 1
+    
+    def removeTeam(self,ID):
+        for i in range(len(self.teams)):
+            if self.teams[i].id == ID:
+                del self.teams[i]
+                return("team %i is succesfully removed"%ID)
+        return("team %i could not be found"%ID)
+    
+    def removeTable(self,ID):
+        for i in range(len(self.tables)):
+            if self.tables[i].id == ID:
+                del self.tables[i]
+                return("table %i is succesfully removed"%ID)
+        return("table %i could not be found"%ID)
+    
+    def removeFixEvent(self,ID):
+        for i in range(len(self.fixEvents)):
+            if self.fixEvents[i].id == ID:
+                del self.fixEvents[i]
+                return("fix event %i is succesfully removed"%ID)
+        return("fix event %i could not be found"%ID)
+    
+    def schemaTeam(self, ID):
+         for i in range(len(self.teams)):
+            if self.teams[i].id == ID:
+                return(self.teams[i].IDorder)
+                
+    def schemaTable(self, ID):
+         for i in range(len(self.tables)):
+            if self.tables[i].id == ID:
+                return(self.tables[i].IDorder)
+                
+    def schemaTotalTeam(self):
+        total = []
         for i in self.teams:
-            print(i.tables)
+            total.append((i.name, i.IDorder))
+        return(total)
+    
+    def schemaTotalTable(self):
+        total = []
+        for i in self.tables:
+            total.append((i.name, i.IDorder))
+        return(total)
             
 """
 ==============
 Test situation
 ==============
 """
-exmpTables = [Table("table 0", 0,200,0, delay=delayTable),
-              Table("table 1", 1,200,1, delay=delayTable),
-              Table("table 2", 2,150,2, delay=delayTable),
-              Table("table 3a", 3,250,3, delay=delayTable),
-              Table("table 3b", 4,250,3, delay=delayTable)]
+'''
+delayTable = 50
+delayTeam = 70
 
-exmpTeams = [Team("hello",0, 4, delay=delayTeam),
-            Team("world",1, 4, delay=delayTeam),
-            Team("haai",2, 4, delay=delayTeam),
-            Team("mars",3, 4, delay=delayTeam),
-            Team("hoi",4, 4, delay=delayTeam),
-            Team("venus",5, 4, delay=delayTeam),
-            Team("eenhoorn",6, 4, delay=delayTeam)]
-
-exmpFixEvents = [FixEvent("Fix1",0,550,700),
-                 FixEvent("Fix2",1,900,1150)]
-
-s = Schema(exmpTeams, exmpTables, exmpFixEvents)
+s = Schema()
+for i in range(7):
+    s.addTeam("team"+str(i),delayTeam)
+s.addTable("Table 0",200,0,delayTable)
+s.addTable("Table 1",200,1,delayTable)
+s.addTable("Table 2",150,2,delayTable)
+s.addTable("Table 3a",250,3,delayTable)
+s.addTable("Table 3b",250,3,delayTable)
+s.addTable("Onzin",250,4,delayTable)
+s.removeTable(5)
+s.addFixEvent("Fix1",550,700)
+s.addFixEvent("Fix2",900,1150)
 s.makeSchema()
+#'''

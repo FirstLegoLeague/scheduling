@@ -10,18 +10,21 @@ class Team():
         self.name = name
         self.id = teamid
         self.delay = delay
-        self.tables = []
+        self.IDorder = []
         self.doneTables = [False]*numTypes
         self.available = 0#earliest time a new task can be added
         self.complete = False
         
     def assignTabel(self,tableID,tableName,tableType,start,time):
-        self.tables.append((tableID,tableName,start, start +time))
+        self.IDorder.append((tableID,tableName,start, start +time))
         self.available = start + self.delay+time
         self.doneTables[tableType] = True
         if not (False in self.doneTables):
             self.complete = True
     
     def assignFix(self, eventName,start,stop):
-        self.tables.append((-1,eventName,start, stop))
-        self.tables = sorted(self.tables, key=lambda x:x[2])
+        self.IDorder.append((-1,eventName,start, stop))
+        self.IDorder = sorted(self.IDorder, key=lambda x:x[2])
+        
+    def changeNumtypes(self,n):
+        self.doneTables = [False]*n
